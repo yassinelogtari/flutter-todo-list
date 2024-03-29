@@ -76,7 +76,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     decoration: BoxDecoration (
                         color: Colors.grey.shade200,
                         border: Border.all(color:Colors.grey),
-                        borderRadius: BorderRadius.circular(13)
+                        borderRadius: BorderRadius.circular(12)
                     ),
                     child: TextField(
                       controller: emailController,

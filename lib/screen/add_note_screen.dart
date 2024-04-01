@@ -17,10 +17,11 @@ class _Add_creenState extends State<Add_creen> {
   FocusNode _focusNode1 = FocusNode();
   FocusNode _focusNode2 = FocusNode();
   int indexx = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColors,
+      backgroundColor: Colors.deepPurple.shade50,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +52,12 @@ class _Add_creenState extends State<Add_creen> {
             Firestore_Datasource().AddNote(subtitle.text, title.text, indexx);
             Navigator.pop(context);
           },
-          child: Text('add task'),
+          child: Text(
+            'add task',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -61,7 +67,9 @@ class _Add_creenState extends State<Add_creen> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text('Cancel'),
+          child: Text('Cancel',style: TextStyle(
+            color: Colors.white,
+          ),),
         ),
       ],
     );

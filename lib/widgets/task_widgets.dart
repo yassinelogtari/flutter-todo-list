@@ -5,8 +5,9 @@ import 'package:flutter_to_do_list/model/notes_model.dart';
 import 'package:flutter_to_do_list/screen/edit_screen.dart';
 
 class Task_Widget extends StatefulWidget {
-  Note _note;
-  Task_Widget(this._note, {super.key});
+  final Note _note;
+
+  Task_Widget(this._note, {Key? key}) : super(key: key);
 
   @override
   State<Task_Widget> createState() => _Task_WidgetState();
@@ -17,7 +18,7 @@ class _Task_WidgetState extends State<Task_Widget> {
   Widget build(BuildContext context) {
     bool isDone = widget._note.isDon;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 10),
       child: Container(
         width: double.infinity,
         height: 130,
@@ -56,17 +57,35 @@ class _Task_WidgetState extends State<Task_Widget> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Checkbox(
-                          activeColor: custom_green,
-                          value: isDone,
-                          onChanged: (value) {
-                            setState(() {
-                              isDone = !isDone;
-                            });
-                            Firestore_Datasource()
-                                .isdone(widget._note.id, isDone);
-                          },
-                        )
+                        Row(
+                          children: [
+                            // Checkbox widget
+                            Checkbox(
+                              activeColor: Colors.deepPurple,
+                              value: isDone,
+                              onChanged: (value) {
+                                setState(() {
+                                  isDone = !isDone;
+                                });
+                                Firestore_Datasource()
+                                    .isdone(widget._note.id, isDone);
+                              },
+                            ),
+                            // Delete icon button
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: IconButton(
+                                icon: Icon(Icons.delete, color: Colors.red),
+                                onPressed: () {
+                                  Firestore_Datasource()
+                                      .delet_note(widget._note.id);
+
+                                  setState(() {});
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                     Text(
@@ -97,7 +116,7 @@ class _Task_WidgetState extends State<Task_Widget> {
             width: 90,
             height: 28,
             decoration: BoxDecoration(
-              color: custom_green,
+              color: Colors.deepPurple,
               borderRadius: BorderRadius.circular(18),
             ),
             child: Padding(
@@ -128,30 +147,33 @@ class _Task_WidgetState extends State<Task_Widget> {
                 builder: (context) => Edit_Screen(widget._note),
               ));
             },
-            child: Container(
-              width: 90,
-              height: 28,
-              decoration: BoxDecoration(
-                color: Color(0xffE2F6F1),
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 1.0),
+              child: Container(
+                width: 90,
+                height: 28,
+                decoration: BoxDecoration(
+                  color: Colors.deepPurple.shade100,
+                  borderRadius: BorderRadius.circular(18),
                 ),
-                child: Row(
-                  children: [
-                    Image.asset('images/icon_edit.png'),
-                    SizedBox(width: 10),
-                    Text(
-                      'edit',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  child: Row(
+                    children: [
+                      Image.asset('images/icon_edit.png'),
+                      SizedBox(width: 10),
+                      Text(
+                        'edit',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

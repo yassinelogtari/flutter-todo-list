@@ -72,11 +72,11 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                     ),
                     child: Column(
                       children: [
-                        textfield(email, _focusNode1, 'Email', Icons.email),
+                        textfield(email, _focusNode1, false, 'Email', Icons.lock),
                         SizedBox(height: 10),
-                        textfield(password, _focusNode2, 'Password', Icons.lock),
+                        textfield(password, _focusNode2,true,'Password',Icons.lock),
                         SizedBox(height: 10),
-                        textfield(PasswordConfirm, _focusNode3, 'PasswordConfirm', Icons.password),
+                        textfield(PasswordConfirm, _focusNode3, true, 'PasswordConfirm',Icons.password),
                         SizedBox(height: 8),
                         account(),
                         SizedBox(height: 20),
@@ -173,7 +173,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     );
   }
 
-  Widget textfield(TextEditingController _controller, FocusNode _focusNode,
+  Widget textfield(TextEditingController _controller, FocusNode _focusNode, bool obscureText,
       String typeName, IconData iconss) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -186,7 +186,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
         child: TextField(
           controller: _controller,
           focusNode: _focusNode,
-          obscureText: true,
+          obscureText: obscureText,
           decoration: InputDecoration(
             labelText: typeName,
             prefixIcon: Icon(

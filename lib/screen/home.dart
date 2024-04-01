@@ -18,10 +18,10 @@ class _Home_ScreenState extends State<Home_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: Colors.deepPurple.shade50,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 2,
+        backgroundColor: Colors.deepPurple.shade50,
+        elevation: 0,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 18.0),
@@ -73,6 +73,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                       ),
                     ),
                   ),
+
                 ],
               ),
             ),
@@ -96,9 +97,9 @@ class _Home_ScreenState extends State<Home_Screen> {
                   SizedBox(height: 16),
                   Stream_note(true) != null
                       ? Container(
-                    padding: EdgeInsets.all(12),
+                    padding: EdgeInsets.symmetric(horizontal:14,vertical: 10 ),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.deepPurple.shade200,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Column(
@@ -108,8 +109,8 @@ class _Home_ScreenState extends State<Home_Screen> {
                           'Completed Tasks',
                           style: TextStyle(
                             fontSize: 15,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.black87,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
                         ),
                         SizedBox(height: 8),

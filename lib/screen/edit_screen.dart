@@ -28,7 +28,7 @@ class _Edit_ScreenState extends State<Edit_Screen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColors,
+      backgroundColor: Colors.deepPurple.shade50,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -60,7 +60,7 @@ class _Edit_ScreenState extends State<Edit_Screen> {
                 widget._note.id, indexx, title!.text, subtitle!.text);
             Navigator.pop(context);
           },
-          child: Text('add task'),
+          child: Text('Update task', style: TextStyle(color: Colors.white),),
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
@@ -70,7 +70,7 @@ class _Edit_ScreenState extends State<Edit_Screen> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Text('Cancel'),
+          child: Text('Quit',style:TextStyle(color: Colors.white)),
         ),
       ],
     );

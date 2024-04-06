@@ -23,17 +23,22 @@ class _Add_creenState extends State<Add_creen> {
     return Scaffold(
       backgroundColor: Colors.deepPurple.shade50,
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            title_widgets(),
-            SizedBox(height: 20),
-            subtite_wedgite(),
-            SizedBox(height: 20),
-            imagess(),
-            SizedBox(height: 20),
-            button()
-          ],
+        child: Center( // Center your content
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center, // Center content vertically
+              children: [
+                SizedBox(height: 50),
+                title_widgets(),
+                SizedBox(height: 20),
+                subtite_wedgite(),
+                SizedBox(height: 20),
+                imagess(),
+                SizedBox(height: 20),
+                button()
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -45,7 +50,7 @@ class _Add_creenState extends State<Add_creen> {
       children: [
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: custom_green,
+            backgroundColor: Colors.deepPurple,
             minimumSize: Size(170, 48),
           ),
           onPressed: () {
@@ -79,7 +84,7 @@ class _Add_creenState extends State<Add_creen> {
     return Container(
       height: 180,
       child: ListView.builder(
-        itemCount: 4,
+        itemCount: 5,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return GestureDetector(
@@ -95,10 +100,11 @@ class _Add_creenState extends State<Add_creen> {
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
                     width: 2,
-                    color: indexx == index ? custom_green : Colors.grey,
+                    color: indexx == index ? Colors.deepPurple : Colors.deepPurple.shade100,
                   ),
                 ),
                 width: 140,
+                height: 50,
                 margin: EdgeInsets.all(8),
                 child: Column(
                   children: [
@@ -128,7 +134,7 @@ class _Add_creenState extends State<Add_creen> {
           decoration: InputDecoration(
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              hintText: 'title',
+              hintText: 'Title',
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
@@ -139,7 +145,7 @@ class _Add_creenState extends State<Add_creen> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
-                  color: custom_green,
+                  color: Colors.deepPurple,
                   width: 2.0,
                 ),
               )),
@@ -162,8 +168,8 @@ class _Add_creenState extends State<Add_creen> {
           focusNode: _focusNode2,
           style: TextStyle(fontSize: 18, color: Colors.black),
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            hintText: 'subtitle',
+            contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            hintText: 'Description',
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
@@ -174,7 +180,7 @@ class _Add_creenState extends State<Add_creen> {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
-                color: custom_green,
+                color: Colors.deepPurple,
                 width: 2.0,
               ),
             ),

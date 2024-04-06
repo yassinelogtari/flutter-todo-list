@@ -97,7 +97,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                   SizedBox(height: 16),
                   Stream_note(true) != null
                       ? Container(
-                    padding: EdgeInsets.symmetric(horizontal:14,vertical: 10 ),
+                    padding: EdgeInsets.symmetric(horizontal:1.4,vertical: 10 ),
                     decoration: BoxDecoration(
                       color: Colors.deepPurple.shade200,
                       borderRadius: BorderRadius.circular(8),
@@ -105,12 +105,15 @@ class _Home_ScreenState extends State<Home_Screen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Completed Tasks',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Text(
+                            'Completed Tasks',
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         SizedBox(height: 8),

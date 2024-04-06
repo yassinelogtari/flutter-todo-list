@@ -1,3 +1,5 @@
+// SignUp_Screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_to_do_list/const/colors.dart';
 import 'package:flutter_to_do_list/data/auth_data.dart';
@@ -19,10 +21,12 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
   final email = TextEditingController();
   final password = TextEditingController();
   final PasswordConfirm = TextEditingController();
+  String? _emailError;
+  String? _passwordError;
+  String? _passwordConfirmError;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _focusNode1.addListener(() {
       setState(() {});
@@ -35,6 +39,19 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     });
   }
 
+  void _validateInputs() {
+    setState(() {
+      _emailError = email.text.isEmpty ? 'Email cannot be empty' : null;
+      _passwordError = password.text.isEmpty ? 'Password cannot be empty' : null;
+      _passwordConfirmError = PasswordConfirm.text.isEmpty ? 'Password confirmation cannot be empty' : null;
+    });
+
+    if (_emailError == null && _passwordError == null && _passwordConfirmError == null) {
+      // Proceed with registration
+      AuthenticationRemote().register(email.text, password.text, PasswordConfirm.text);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +62,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 200),
+                  SizedBox(height: 100),
                   Text("Sign Up",style: GoogleFonts.bebasNeue(
                       fontSize:40
                   )),
@@ -72,11 +89,11 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                     ),
                     child: Column(
                       children: [
-                        textfield(email, _focusNode1, false, 'Email', Icons.lock),
+                        textfield(email, _focusNode1, false, 'Email', Icons.email, _emailError),
                         SizedBox(height: 10),
-                        textfield(password, _focusNode2,true,'Password',Icons.lock),
+                        textfield(password, _focusNode2,true,'Password',Icons.lock, _passwordError),
                         SizedBox(height: 10),
-                        textfield(PasswordConfirm, _focusNode3, true, 'PasswordConfirm',Icons.password),
+                        textfield(PasswordConfirm, _focusNode3, true, 'PasswordConfirm',Icons.lock, _passwordConfirmError),
                         SizedBox(height: 8),
                         account(),
                         SizedBox(height: 20),
@@ -120,7 +137,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
 
   Widget account() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28),
+      padding: const EdgeInsets.symmetric(horizontal: 25),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -148,10 +165,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: GestureDetector(
-        onTap: () {
-          AuthenticationRemote()
-              .register(email.text, password.text, PasswordConfirm.text);
-        },
+        onTap: _validateInputs,
         child: Container(
           alignment: Alignment.center,
           width: double.infinity,
@@ -174,34 +188,47 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
   }
 
   Widget textfield(TextEditingController _controller, FocusNode _focusNode, bool obscureText,
-      String typeName, IconData iconss) {
+      String typeName, IconData iconss, String? errorText) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Container(
-        decoration: BoxDecoration (
-            color: Colors.grey.shade200,
-            border: Border.all(color:Colors.grey),
-            borderRadius: BorderRadius.circular(12)
-        ),
-        child: TextField(
-          controller: _controller,
-          focusNode: _focusNode,
-          obscureText: obscureText,
-          decoration: InputDecoration(
-            labelText: typeName,
-            prefixIcon: Icon(
-              iconss,
-              color: Colors.grey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            decoration: BoxDecoration (
+                color: Colors.grey.shade200,
+                border: Border.all(color:Colors.grey),
+                borderRadius: BorderRadius.circular(12)
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Colors.grey),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
+            child: TextField(
+              controller: _controller,
+              focusNode: _focusNode,
+              obscureText: obscureText,
+              decoration: InputDecoration(
+                labelText: typeName,
+                prefixIcon: Icon(
+                  iconss,
+                  color: Colors.grey,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.grey),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
             ),
           ),
-        ),
+          if (errorText != null) // Display error message if it exists
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                errorText,
+                style: TextStyle(color: Colors.red, fontSize: 12),
+              ),
+            ),
+        ],
       ),
     );
   }

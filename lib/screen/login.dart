@@ -18,6 +18,8 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
+  String? _emailError;
+  String? _passwordError;
 
   @override
   void initState() {
@@ -39,6 +41,18 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
     super.dispose();
   }
 
+  void _validateInputs() {
+    setState(() {
+      _emailError = _emailController.text.isEmpty ? 'Email cannot be empty' : null;
+      _passwordError = _passwordController.text.isEmpty ? 'Password cannot be empty' : null;
+    });
+
+    if (_emailError == null && _passwordError == null) {
+      // Proceed with login
+      AuthenticationRemote().login(_emailController.text, _passwordController.text);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +64,7 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 150),
+                  SizedBox(height: 90),
                   Icon(Icons.task,size: 100,),
                   SizedBox(height: 30),
                   Text("ToDo App",style: GoogleFonts.bebasNeue(
@@ -88,6 +102,7 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(color: Colors.grey),
                             ),
+                            errorText: _emailError,
                           ),
                         ),
                         SizedBox(height: 16),
@@ -105,6 +120,7 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
+                            errorText: _passwordError,
                           ),
                         ),
                         SizedBox(height: 16),
@@ -124,9 +140,7 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
                         ),
                         SizedBox(height: 24),
                         ElevatedButton(
-                          onPressed: () {
-                            AuthenticationRemote().login(_emailController.text, _passwordController.text);
-                          },
+                          onPressed: _validateInputs,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepPurple,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

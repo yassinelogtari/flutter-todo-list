@@ -17,90 +17,93 @@ class _Task_WidgetState extends State<Task_Widget> {
   @override
   Widget build(BuildContext context) {
     bool isDone = widget._note.isDon;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 10),
-      child: Container(
-        width: double.infinity,
-        height: 130,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            children: [
-              // image
-              imageee(),
-              SizedBox(width: 25),
-              // title and subtitle
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 5),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          widget._note.title,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            // Checkbox widget
-                            Checkbox(
-                              activeColor: Colors.deepPurple,
-                              value: isDone,
-                              onChanged: (value) {
-                                setState(() {
-                                  isDone = !isDone;
-                                });
-                                Firestore_Datasource()
-                                    .isdone(widget._note.id, isDone);
-                              },
-                            ),
-                            // Delete icon button
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: IconButton(
-                                icon: Icon(Icons.delete, color: Colors.red),
-                                onPressed: () {
-                                  Firestore_Datasource()
-                                      .delet_note(widget._note.id);
-
-                                  setState(() {});
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Text(
-                      widget._note.subtitle,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey.shade400),
-                    ),
-                    Spacer(),
-                    edit_time()
-                  ],
-                ),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 10),
+        child: Container(
+          width: MediaQuery.of(context).size.width, // Set width to screen width
+          height: 130,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3),
               ),
             ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                // image
+                imageee(),
+                SizedBox(width: 25),
+                // title and subtitle
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            widget._note.title,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              // Checkbox widget
+                              Checkbox(
+                                activeColor: Colors.deepPurple,
+                                value: isDone,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isDone = !isDone;
+                                  });
+                                  Firestore_Datasource()
+                                      .isdone(widget._note.id, isDone);
+                                },
+                              ),
+                              // Delete icon button
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: IconButton(
+                                  icon: Icon(Icons.delete, color: Colors.red),
+                                  onPressed: () {
+                                    Firestore_Datasource()
+                                        .delet_note(widget._note.id);
+
+                                    setState(() {});
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Text(
+                        widget._note.subtitle,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey.shade400),
+                      ),
+                      Spacer(),
+                      edit_time()
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -113,8 +116,8 @@ class _Task_WidgetState extends State<Task_Widget> {
       child: Row(
         children: [
           Container(
-            width: 90,
-            height: 28,
+            width: 85,
+            height: 20,
             decoration: BoxDecoration(
               color: Colors.deepPurple,
               borderRadius: BorderRadius.circular(18),
@@ -122,7 +125,7 @@ class _Task_WidgetState extends State<Task_Widget> {
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 12,
-                vertical: 6,
+                vertical: 3,
               ),
               child: Row(
                 children: [
@@ -132,7 +135,7 @@ class _Task_WidgetState extends State<Task_Widget> {
                     widget._note.time,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 14,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -150,16 +153,16 @@ class _Task_WidgetState extends State<Task_Widget> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 1.0),
               child: Container(
-                width: 90,
-                height: 28,
+                width: 85,
+                height: 20,
                 decoration: BoxDecoration(
                   color: Colors.deepPurple.shade100,
-                  borderRadius: BorderRadius.circular(18),
+                  borderRadius: BorderRadius.circular(30),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 12,
-                    vertical: 6,
+                    vertical: 3,
                   ),
                   child: Row(
                     children: [
@@ -168,7 +171,7 @@ class _Task_WidgetState extends State<Task_Widget> {
                       Text(
                         'edit',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 10,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

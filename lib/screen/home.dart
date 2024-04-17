@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_to_do_list/const/colors.dart';
 import 'package:flutter_to_do_list/screen/add_note_screen.dart';
 import 'package:flutter_to_do_list/widgets/stream_note.dart';
+import 'SettingsScreen.dart';
 import 'login.dart';
 
 class Home_Screen extends StatefulWidget {
@@ -23,20 +24,77 @@ class _Home_ScreenState extends State<Home_Screen> {
         backgroundColor: Colors.deepPurple.shade50,
         elevation: 0,
         actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 18.0),
-            child: IconButton(
-              onPressed: () async {
+        ],
+      ),
+      drawer: Drawer(
+        width: 250,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.deepPurple.shade100,
+              ),
+              child: Text(
+                '',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.add_circle_outline), // Add icon to the item
+              title: Text(
+                'Add Task',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Add_creen(),
+                ));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings), // Add icon to the item
+              title: Text(
+                'Settings',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingsScreen()),
+                );
+              },
+            ),
+            Divider(), // Add a divider for visual separation
+            ListTile(
+              leading: Icon(Icons.logout), // Add logout icon
+              title: Text(
+                'Logout',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onTap: () async {
                 await FirebaseAuth.instance.signOut();
                 Navigator.pushNamed(context, "LogIN_Screen");
               },
-              icon: Icon(Icons.logout),
-              color: Colors.black87,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-      body: SingleChildScrollView( // Wrap your Column with SingleChildScrollView
+
+
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -137,7 +195,7 @@ class _Home_ScreenState extends State<Home_Screen> {
             ));
           },
           backgroundColor: Colors.deepPurple,
-          mini: true, // Set mini property to true to make the button smaller
+          mini: true,
           child: Icon(Icons.add, color: Colors.white),
         ),
       ),

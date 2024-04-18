@@ -1,10 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_to_do_list/const/colors.dart';
 import 'package:flutter_to_do_list/data/firestor.dart';
+import 'package:provider/provider.dart';
+import 'ThemeProvider.dart'; // Import the theme provider
 
 class Add_creen extends StatefulWidget {
-  const Add_creen({super.key});
+  const Add_creen({Key? key});
 
   @override
   State<Add_creen> createState() => _Add_creenState();
@@ -20,27 +21,31 @@ class _Add_creenState extends State<Add_creen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.deepPurple.shade50,
-      body: SafeArea(
-        child: Center( // Center your content
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center, // Center content vertically
-              children: [
-                SizedBox(height: 50),
-                title_widgets(),
-                SizedBox(height: 20),
-                subtite_wedgite(),
-                SizedBox(height: 20),
-                imagess(),
-                SizedBox(height: 20),
-                button()
-              ],
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) { // Use the Consumer widget to listen to changes
+        return Scaffold(
+          backgroundColor: themeProvider.themeData.backgroundColor, // Use the theme color
+          body: SafeArea(
+            child: Center( // Center your content
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center, // Center content vertically
+                  children: [
+                    SizedBox(height: 50),
+                    title_widgets(themeProvider), // Pass themeProvider to title_widgets
+                    SizedBox(height: 20),
+                    subtite_wedgite(themeProvider), // Pass themeProvider to subtite_wedgite
+                    SizedBox(height: 20),
+                    imagess(),
+                    SizedBox(height: 20),
+                    button()
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -119,7 +124,7 @@ class _Add_creenState extends State<Add_creen> {
     );
   }
 
-  Widget title_widgets() {
+  Widget title_widgets(ThemeProvider themeProvider) { // Pass themeProvider parameter
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Container(
@@ -132,29 +137,30 @@ class _Add_creenState extends State<Add_creen> {
           focusNode: _focusNode1,
           style: TextStyle(fontSize: 18, color: Colors.black),
           decoration: InputDecoration(
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              hintText: 'Title',
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
-                  color: Color(0xffc5c5c5),
-                  width: 2.0,
-                ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            hintText: 'Title',
+            hintStyle: TextStyle(color: themeProvider.themeData.backgroundColor == Colors.black ? Colors.white : Colors.grey), // Change hint text color based on theme
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: Color(0xffc5c5c5),
+                width: 2.0,
               ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
-                  color: Colors.deepPurple,
-                  width: 2.0,
-                ),
-              )),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(
+                color: Colors.deepPurple,
+                width: 2.0,
+              ),
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Padding subtite_wedgite() {
+  Padding subtite_wedgite(ThemeProvider themeProvider) { // Pass themeProvider parameter
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Container(
@@ -170,6 +176,7 @@ class _Add_creenState extends State<Add_creen> {
           decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             hintText: 'Description',
+            hintStyle: TextStyle(color: themeProvider.themeData.backgroundColor == Colors.black ? Colors.white : Colors.grey), // Change hint text color based on theme
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(

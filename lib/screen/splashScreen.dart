@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../auth/main_page.dart';
+import 'Onboarding.dart';
 import 'home.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -29,7 +30,7 @@ class SplashScreen extends StatelessWidget {
             ),
           ],
         ),
-        nextScreen: const Main_Page(),
+        nextScreen: const OnboardingPage(),
         splashIconSize: 400,
         backgroundColor: Colors.grey.shade300,
       ),

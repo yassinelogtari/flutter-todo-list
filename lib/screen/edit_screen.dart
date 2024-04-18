@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_to_do_list/const/colors.dart';
 import 'package:flutter_to_do_list/data/firestor.dart';
 import 'package:flutter_to_do_list/model/notes_model.dart';
+import 'package:provider/provider.dart';
+
+import 'ThemeProvider.dart'; // Import the theme provider
 
 class Edit_Screen extends StatefulWidget {
-  Note _note;
-  Edit_Screen(this._note, {super.key});
+  final Note _note;
+  Edit_Screen(this._note, {Key? key});
 
   @override
   State<Edit_Screen> createState() => _Edit_ScreenState();
@@ -18,31 +21,36 @@ class _Edit_ScreenState extends State<Edit_Screen> {
   FocusNode _focusNode1 = FocusNode();
   FocusNode _focusNode2 = FocusNode();
   int indexx = 0;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     title = TextEditingController(text: widget._note.title);
     subtitle = TextEditingController(text: widget._note.subtitle);
   }
 
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.deepPurple.shade50,
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            title_widgets(),
-            SizedBox(height: 20),
-            subtite_wedgite(),
-            SizedBox(height: 20),
-            imagess(),
-            SizedBox(height: 20),
-            button()
-          ],
-        ),
-      ),
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) { // Use the Consumer widget to listen to changes
+        return Scaffold(
+          backgroundColor: themeProvider.themeData.backgroundColor, // Use the theme color
+          body: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                title_widgets(),
+                SizedBox(height: 20),
+                subtite_wedgite(),
+                SizedBox(height: 20),
+                imagess(),
+                SizedBox(height: 20),
+                button()
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -128,7 +136,7 @@ class _Edit_ScreenState extends State<Edit_Screen> {
           style: TextStyle(fontSize: 18, color: Colors.black),
           decoration: InputDecoration(
               contentPadding:
-                  EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               hintText: 'title',
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),

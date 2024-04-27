@@ -5,19 +5,19 @@ class OnboardingData{
 
   List<OnboardingInfo> items = [
     OnboardingInfo(
-        title: "Unlimited Questions",
-        description: "High qualities questions and quizzes with hundreds of tests",
+        title: "Stay Organized",
+        description: "Effortlessly manage your tasks and stay on top of your to-do list",
         image: "images/onboarding1.gif"),
 
     OnboardingInfo(
-        title: "Interesting stories",
-        description: "Reading top stories to learn and enhance your knowledge",
-        image: "images/onboarding1.gif"),
+        title: "Discover New Tasks",
+        description: "Explore diverse tasks and projects to enhance your productivity",
+        image: "images/onboarding2.gif"),
 
     OnboardingInfo(
-        title: "Reading Books",
-        description: "Reading new books with top content and excellent stories""Reading new books with top content and excellent stories",
-        image: "images/onboarding1.gif"),
+        title: "Track Your Progress",
+        description: "Monitor your accomplishments and track your progress over time",
+        image: "images/onboarding3.gif"),
 
   ];
 }

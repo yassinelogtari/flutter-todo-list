@@ -24,6 +24,23 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Future passwordReset() async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: emailController.text.trim());
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Email Sent'),
+            content: Text('A password reset link has been sent to ${emailController.text.trim()}'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     } on FirebaseAuthException catch (e) {
       print(e);
       showDialog(
@@ -42,7 +59,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
-        backgroundColor:Colors.grey.shade300,
+        backgroundColor: Colors.grey.shade300,
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -70,37 +87,40 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Container(
-                    decoration: BoxDecoration (
-                        color: Colors.grey.shade200,
-                        border: Border.all(color:Colors.grey),
-                        borderRadius: BorderRadius.circular(12)
-                    ),
-                    child: TextField(
-                      controller: emailController,
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        prefixIcon: Icon(Icons.email, color: Colors.grey),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: TextField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    prefixIcon: Icon(Icons.email, color: Colors.grey),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ),
+              ),
+            ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: passwordReset,
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.deepPurple,
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.deepPurple,
                 minimumSize: Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8), // Changer ici le radius selon votre choix
                 ),
               ),
-              child: Text('Send Reset Link',),
+              child: Text(
+                'Send Reset Link',
+              ),
             ),
           ],
         ),
